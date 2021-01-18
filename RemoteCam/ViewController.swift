@@ -6,16 +6,15 @@
 //
 
 import UIKit
-import ARKit
+import AVFoundation
 import Network
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var colorImageView: UIImageView!
-    @IBOutlet weak var depthImageView: UIImageView!
     
-    private let session = ARSession()
-    private var sampleFrame: ARFrame { session.currentFrame! }
+    private let session = AVCaptureSession()
+    private let captureOutput = AVCaptureVideoDataOutput()
     
     private var listener = try! NWListener(using: .tcp, on:12345)
     private var nwConnection: NWConnection!
@@ -23,8 +22,6 @@ class ViewController: UIViewController {
     private var networkQueue = DispatchQueue(label: "networkQueue")
         
     private var colorImage : UIImage!
-    private var depthImage : UIImage!
-    private var depthData : CVPixelBuffer!
     
     // It'll works like EOF
     let tailData = "__TAIL_TAIL_TAIL__".data(using: .utf8)
@@ -33,8 +30,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        session.delegate = self
     
         listener.newConnectionHandler = {
             connection in
@@ -57,25 +52,10 @@ class ViewController: UIViewController {
                     
                     var imgData : Data?
                     if(receivedString == "rgb"){
+                        print(self.colorImage.size)
+                        // FIXME : resolution increases in client
                         imgData = self.colorImage.pngData()
                         
-                    }
-                    else if(receivedString == "depth"){
-                        
-                        CVPixelBufferLockBaseAddress(self.depthData, CVPixelBufferLockFlags(rawValue: 0))
-                    
-                        var byteBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self.depthData), to: UnsafeMutablePointer<Float32>.self)
-                        var depthArray = [Float32](repeating: -1, count: 256*192)
-                        
-                        for row in 0...191{
-                            for col in 0...255{
-                                depthArray[row*256 + col] = byteBuffer.pointee
-                                byteBuffer = byteBuffer.successor()
-                            }
-                        }
-                        CVPixelBufferUnlockBaseAddress(self.depthData, CVPixelBufferLockFlags(rawValue: 0))
-                    
-                        imgData = Data(bytes: &depthArray, count: depthArray.count * MemoryLayout<Float32>.stride)
                     }
                     else if(receivedString == "dummy"){
                         imgData = "DUMMY DATA".data(using: .utf8)
@@ -100,35 +80,53 @@ class ViewController: UIViewController {
         
         listener.start(queue: DispatchQueue(label: "NWListener queue"))
         
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.frameSemantics = .sceneDepth
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:
+            [.builtInDualCamera, .builtInWideAngleCamera],
+            mediaType: .video, position: .back)
         
-        session.run(configuration)
+        let captureDevice = discoverySession.devices.first
         
+        // Set resolution
+        session.sessionPreset = .vga640x480
+        // Set expossure time, ISO, white balance, focus mode
+        do {
+            try captureDevice!.lockForConfiguration()
+            captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: 80), iso: 120, completionHandler: nil)
+            captureDevice?.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(), completionHandler: nil)
+            captureDevice?.focusMode = .continuousAutoFocus
+            captureDevice!.unlockForConfiguration()
+        } catch {
+            debugPrint(error)
+        }
+
+        captureDevice?.unlockForConfiguration()
+        
+        let captureInput = try! AVCaptureDeviceInput(device: captureDevice!)
+        session.addInput(captureInput)
+        
+        let bounds = self.view.bounds
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.width, height: bounds.height))
+        previewLayer.videoGravity = .resize
+        previewLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        previewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight;
+        
+        colorImageView.layer.addSublayer(previewLayer)
+        
+        captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "AVCaptureOutputQueue", attributes: []))
+        session.addOutput(captureOutput)
+        
+        session.commitConfiguration()
+        session.startRunning()
     }
 }
 
-extension ViewController: ARSessionDelegate{
-    
-    func session(_ session: ARSession, didUpdate frame: ARFrame){
+extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        let colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: frame.capturedImage))
-        colorImageView.image = colorImage
-        self.colorImage = colorImage.resize(to: CGSize(width: 640, height: 480))
-//        width :  1920
-//        height :  1440
-        
-        // format : kCVPixelFormatType_DepthFloat32
-        // width  : 256
-        // height : 192
-        let depthData = frame.sceneDepth?.depthMap
-        if(depthData != nil){
-            let depthImage = UIImage(ciImage: CIImage(cvPixelBuffer: depthData!))
-            
-            depthImageView.image = depthImage
-            self.depthImage = depthImage
-            self.depthData = depthData
-        }
+        let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
+        self.colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: imageBuffer))
     }
 }
 
@@ -142,7 +140,6 @@ extension UIImage {
     /// - Returns: Resized image.
     public func resize(to newSize: CGSize) -> UIImage? {
         return resizeWithUIKit(to: newSize)
-//        return resizeWithCoreImage(to: newSize)
     }
 
     // MARK: - UIKit
