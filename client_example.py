@@ -1,3 +1,5 @@
+# Refer main branch for LiDAR usage.
+
 import socket
 import time
 
@@ -40,15 +42,9 @@ def get_rgb_image(clientSocket, filename):
     f.write(img_data)
     f.close()
 
-def get_depth_image(clientSocket, filename):
-    path = filename + '.exr'
-    img_data = request(clientSocket, 'depth')
-
-    array = np.frombuffer(img_data[:-len(TAIL_UTF8)], dtype=np.float32)
-    # LiDAR scene depth resolution is 256*192 in iPad 12.9 4th-gen.
-    array = np.reshape(array, (192,256))
-    
-    pyexr.write(path, array)
+# Refer main branch for LiDAR usage.
+# def get_depth_image(clientSocket, filename):
+#     pass
 
 if __name__ == '__main__':
 
@@ -66,7 +62,8 @@ if __name__ == '__main__':
 
     for i in range(1, 3):
         get_rgb_image(clientSocket, str(i))
-        get_depth_image(clientSocket, str(i))
+        # Refer main branch for LiDAR usage.
+        # get_depth_image(clientSocket, str(i))
 
     print("Close socket")
     clientSocket.close()
