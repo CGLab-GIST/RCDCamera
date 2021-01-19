@@ -12,9 +12,17 @@ import Network
 class ViewController: UIViewController {
 
     @IBOutlet weak var colorImageView: UIImageView!
+    @IBOutlet weak var ISOTextViewer: UITextField!
+    @IBOutlet weak var ISOSlider: UISlider!
+    @IBOutlet weak var exposureSlider: UISlider!
+    @IBOutlet weak var exposureTextViewer: UITextField!
+    
+    private var ISO = 120
+    private var exposureTime = 80
     
     private let session = AVCaptureSession()
     private let captureOutput = AVCaptureVideoDataOutput()
+    private var captureDevice : AVCaptureDevice!
     
     private var listener = try! NWListener(using: .tcp, on:12345)
     private var nwConnection: NWConnection!
@@ -25,8 +33,6 @@ class ViewController: UIViewController {
     
     // It'll works like EOF
     let tailData = "__TAIL_TAIL_TAIL__".data(using: .utf8)
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,25 +90,35 @@ class ViewController: UIViewController {
             [.builtInDualCamera, .builtInWideAngleCamera],
             mediaType: .video, position: .back)
         
-        let captureDevice = discoverySession.devices.first
+        self.captureDevice = discoverySession.devices.first
         
         // Set resolution
-        session.sessionPreset = .vga640x480
+        self.session.sessionPreset = .vga640x480
         // Set expossure time, ISO, white balance, focus mode
         do {
-            try captureDevice!.lockForConfiguration()
-            captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: 80), iso: 120, completionHandler: nil)
-            captureDevice?.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(), completionHandler: nil)
-            captureDevice?.focusMode = .continuousAutoFocus
-            captureDevice!.unlockForConfiguration()
+            try self.captureDevice!.lockForConfiguration()
+            self.captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: Int32(self.exposureTime)), iso: Float(self.ISO), completionHandler: nil)
+            self.captureDevice?.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(), completionHandler: nil)
+            self.captureDevice?.focusMode = .continuousAutoFocus
+            self.captureDevice!.unlockForConfiguration()
         } catch {
             debugPrint(error)
         }
 
-        captureDevice?.unlockForConfiguration()
+        self.captureDevice?.unlockForConfiguration()
+        
+        ISOSlider.minimumValue = (captureDevice?.activeFormat.minISO)!
+        ISOSlider.maximumValue = 1000
+        ISOSlider.setValue(Float(self.ISO), animated: true)
+        ISOTextViewer.text = String(self.ISO)
+        
+        exposureSlider.minimumValue = Float(CMTimeGetSeconds((captureDevice?.activeFormat.maxExposureDuration)!))
+        exposureSlider.maximumValue = 3000
+        exposureSlider.setValue(Float(self.exposureTime), animated: true)
+        exposureTextViewer.text = "1 / "+String(self.exposureTime)
         
         let captureInput = try! AVCaptureDeviceInput(device: captureDevice!)
-        session.addInput(captureInput)
+        self.session.addInput(captureInput)
         
         let bounds = self.view.bounds
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
@@ -113,12 +129,36 @@ class ViewController: UIViewController {
         
         colorImageView.layer.addSublayer(previewLayer)
         
-        captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "AVCaptureOutputQueue", attributes: []))
-        session.addOutput(captureOutput)
+        self.captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "AVCaptureOutputQueue", attributes: []))
+        self.session.addOutput(self.captureOutput)
         
-        session.commitConfiguration()
-        session.startRunning()
+        self.session.commitConfiguration()
+        self.session.startRunning()
     }
+    
+    
+    @IBAction func ISOSliderChanged(_ sender: UISlider) {
+        self.ISO = Int(sender.value)
+        ISOTextViewer.text = String(self.ISO)
+        adjustCamera()
+    }
+    
+    @IBAction func exposureSliderChanged(_ sender: UISlider) {
+        self.exposureTime = Int(sender.value)
+        exposureTextViewer.text = "1 / "+String(self.exposureTime)
+        adjustCamera()
+    }
+    
+    func adjustCamera(){
+        do {
+            try self.captureDevice!.lockForConfiguration()
+            self.captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: Int32(self.exposureTime)), iso: Float(self.ISO), completionHandler: nil)
+            self.captureDevice!.unlockForConfiguration()
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
