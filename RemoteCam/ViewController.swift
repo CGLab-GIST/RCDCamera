@@ -126,7 +126,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-        self.colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: imageBuffer))
+        self.colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: imageBuffer)).resize(to: CGSize(width: 640, height: 480))
     }
 }
 
