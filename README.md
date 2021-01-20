@@ -15,11 +15,12 @@ Please refer `client_example.py` for usage. It receives color or depth image fro
  1. Check IP address of your device in Setting and run application.
  2. Set IP address as device's in `client_example.py` and run script. It may requires few dependencies.
 
+### Screenshots
 
-#### `main` : Getting depth image from LiDAR
+#### `main`
 ![IMG_0006](https://user-images.githubusercontent.com/11532321/104289202-34d81400-54fc-11eb-96f8-5a6e6a03acf2.PNG)
 
 
-#### `without_depth` : Setting ISO and exposure time manually
+#### `without_depth`
 
 ![output-onlinepngtools](https://user-images.githubusercontent.com/11532321/104986736-0e176180-5a57-11eb-8f01-eb4db918045f.png)
