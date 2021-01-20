@@ -1,11 +1,16 @@
 # RemoteCamera
-Simple iOS remote camera app to send color and depth images that can be received by the socket, without any 3rd-party dependencies, using [ARKit 4](https://developer.apple.com/documentation/arkit/) and [Network](https://developer.apple.com/documentation/network) frameworks. It is implemented to replace [Intel RealSense](https://github.com/IntelRealSense/librealsense) for my personal usage. 
+Simple iOS remote camera app to send color and depth images that can be received by the socket, without any 3rd-party dependencies. It is implemented to replace [Intel RealSense](https://github.com/IntelRealSense/librealsense) for my personal usage. This repository contains 2 branches, `main` and `without_depth`.
 
-**This app requires LiDAR-embedded ios devices.**
+### Dependencies and requirements
+- `main` : [ARKit 4](https://developer.apple.com/documentation/arkit/), [Network](https://developer.apple.com/documentation/network), **LiDAR-embedded iOS device**
+- `without_depth` : [AVFoundation](https://developer.apple.com/documentation/avfoundation), [Network](https://developer.apple.com/documentation/network)
 
-Use `main` branch for getting depth image with ARKit 4 or `without_depth` branch for adjusting exposure and ISO only if you need color image only (Note that ARKit 4 doesn't support setting camera exposure manually).
+### Feature
+- `main` : Send color and depth image to socket
+- `without_depth` Send color image **only** to socket with manually set camera(Exposure, ISO). Note that ARKit 4 doesn't support setting camera exposure manually.
 
-Please refer `client_example.py` for usage.
+### Client example
+Please refer `client_example.py` for usage. It receives color or depth image from the connected socket.
 
  1. Check IP address of your device in Setting and run application.
  2. Set IP address as device's in `client_example.py` and run script. It may requires few dependencies.
