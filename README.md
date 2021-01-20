@@ -7,7 +7,7 @@ Simple iOS remote camera app to send color and depth images that can be received
 
 ### Feature
 - `main` : Send color and depth image to socket
-- `without_depth` Send color image **only** to socket with manually set camera(Exposure, ISO). Note that ARKit 4 doesn't support setting camera exposure manually.
+- `without_depth` Send color image **only** to socket with manually set camera(Exposure, ISO). **Note that ARKit 4 doesn't support setting camera ISO and exposure manually.**
 
 ### Client example
 Please refer `client_example.py` for usage. It receives color or depth image from the connected socket.
