@@ -11,7 +11,7 @@ Simple iOS remote camera app to send color and depth images that can be received
 
 ### Usage
 
-You have to know device's ip address, its port is set to `12345` by default.
+You have to know device's ip address. RCDCamera uses port `12345` by default.
 
 - RGB : Send UTF-8 encoded `rgb` string to the address, PNG image itself will be returned.
 - Depth(`main` branch only) : Send UTF-8 encoded `depth` string to the address, binary of the depth **ARRAY** will be returned. You have to convert it to an image in some way.
