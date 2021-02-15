@@ -40,6 +40,14 @@ def get_rgb_image(clientSocket, filename):
     f.write(img_data)
     f.close()
 
+def get_depth_png_image(clientSocket, filename):
+    img_data = request(clientSocket, 'depth')
+    path = filename + '.png'
+    
+    f = open(path, 'wb')
+    f.write(img_data)
+    f.close()
+
 def get_depth_image(clientSocket, filename):
     path = filename + '.exr'
     img_data = request(clientSocket, 'depth')
@@ -67,6 +75,7 @@ if __name__ == '__main__':
     for i in range(1, 3):
         get_rgb_image(clientSocket, str(i))
         get_depth_image(clientSocket, str(i))
+        get_depth_png_image(clientSocket, str(i))
 
     print("Close socket")
     clientSocket.close()
