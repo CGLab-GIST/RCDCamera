@@ -61,21 +61,7 @@ class ViewController: UIViewController {
                         
                     }
                     else if(receivedString == "depth"){
-                        
-                        CVPixelBufferLockBaseAddress(self.depthData, CVPixelBufferLockFlags(rawValue: 0))
-                    
-                        var byteBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self.depthData), to: UnsafeMutablePointer<Float32>.self)
-                        var depthArray = [Float32](repeating: -1, count: 256*192)
-                        
-                        for row in 0...191{
-                            for col in 0...255{
-                                depthArray[row*256 + col] = byteBuffer.pointee
-                                byteBuffer = byteBuffer.successor()
-                            }
-                        }
-                        CVPixelBufferUnlockBaseAddress(self.depthData, CVPixelBufferLockFlags(rawValue: 0))
-                    
-                        imgData = Data(bytes: &depthArray, count: depthArray.count * MemoryLayout<Float32>.stride)
+                        imgData = self.depthImage.pngData()
                     }
                     else if(receivedString == "dummy"){
                         imgData = "DUMMY DATA".data(using: .utf8)
