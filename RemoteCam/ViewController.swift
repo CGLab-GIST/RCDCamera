@@ -13,6 +13,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var colorImageView: UIImageView!
     @IBOutlet weak var depthImageView: UIImageView!
+    @IBOutlet weak var intrinsicTitleView: UITextView!
+    @IBOutlet weak var intrinsicMatView: UITextView!
     
     private let session = ARSession()
     private var sampleFrame: ARFrame { session.currentFrame! }
@@ -103,6 +105,12 @@ class ViewController: UIViewController {
         let configuration = ARWorldTrackingConfiguration()
         configuration.frameSemantics = .sceneDepth
         
+        // Check supported video format as below
+        // print(ARWorldTrackingConfiguration.supportedVideoFormats)
+        // configuration.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats[2]
+        
+        intrinsicTitleView.text = "Intrinsic with resolution " + NSCoder.string(for: configuration.videoFormat.imageResolution)
+        
         session.run(configuration)
         
     }
@@ -112,11 +120,23 @@ extension ViewController: ARSessionDelegate{
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){
         
+        let intrinsics = frame.camera.intrinsics
+        var intrinsicMatStr = ""
+        for i in 0..<3 {
+            let row = intrinsics[i]
+            for j in 0..<3{
+                let val = String(row[j])
+                intrinsicMatStr += val.leftPadding(toLength: 11, withPad: " ")
+            }
+            intrinsicMatStr += "\n"
+        }
+        intrinsicMatView.text = intrinsicMatStr
+        
+        
         let colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: frame.capturedImage))
         colorImageView.image = colorImage
+        // Original resolution depends on configuration set before
         self.colorImage = colorImage.resize(to: CGSize(width: 640, height: 480))
-//        width :  1920
-//        height :  1440
         
         // format : kCVPixelFormatType_DepthFloat32
         // width  : 256
@@ -132,6 +152,18 @@ extension ViewController: ARSessionDelegate{
     }
 }
 
+// https://stackoverflow.com/a/39215372
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let stringLength = self.count
+        if stringLength < toLength {
+            return String(repeatElement(character, count: toLength - stringLength)) + self
+        } else {
+            return String(self.suffix(toLength))
+        }
+    }
+}
+
 // https://stackoverflow.com/a/55906075
 extension UIImage {
 
@@ -141,17 +173,6 @@ extension UIImage {
     /// - Parameter resizeFramework: Technique for image resizing: UIKit / CoreImage / CoreGraphics / ImageIO / Accelerate.
     /// - Returns: Resized image.
     public func resize(to newSize: CGSize) -> UIImage? {
-        return resizeWithUIKit(to: newSize)
-//        return resizeWithCoreImage(to: newSize)
-    }
-
-    // MARK: - UIKit
-
-    /// Resize image from given size.
-    ///
-    /// - Parameter newSize: Size of the image output.
-    /// - Returns: Resized image.
-    private func resizeWithUIKit(to newSize: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(newSize, true, 1.0)
         self.draw(in: CGRect(origin: .zero, size: newSize))
         defer { UIGraphicsEndImageContext() }

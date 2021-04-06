@@ -24,6 +24,22 @@
                                 <rect key="frame" x="39" y="20" width="581" height="380"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Intrinsics with resolution " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IgQ-Uf-9kU">
+                                <rect key="frame" x="671" y="57" width="443" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Intrinsic matrix" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wPH-Or-RrT">
+                                <rect key="frame" x="695" y="117" width="334" height="221"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -31,6 +47,8 @@
                     <connections>
                         <outlet property="colorImageView" destination="fe2-pg-iQp" id="qdh-TL-OAm"/>
                         <outlet property="depthImageView" destination="zSH-x2-gIR" id="Xfh-Je-lNM"/>
+                        <outlet property="intrinsicMatView" destination="wPH-Or-RrT" id="O7C-RX-FeC"/>
+                        <outlet property="intrinsicTitleView" destination="IgQ-Uf-9kU" id="WmG-57-pWi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -39,6 +57,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
