@@ -31,8 +31,6 @@ class ViewController: UIViewController {
     // It'll works like EOF
     let tailData = "__TAIL_TAIL_TAIL__".data(using: .utf8)
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -126,7 +124,7 @@ extension ViewController: ARSessionDelegate{
             let row = intrinsics[i]
             for j in 0..<3{
                 let val = String(row[j])
-                intrinsicMatStr += val.leftPadding(toLength: 11, withPad: " ")
+                intrinsicMatStr += val.leftPadding(toLength: 10, withPad: " ")
             }
             intrinsicMatStr += "\n"
         }
