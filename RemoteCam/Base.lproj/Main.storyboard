@@ -25,7 +25,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Intrinsics with resolution " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IgQ-Uf-9kU">
-                                <rect key="frame" x="671" y="57" width="443" height="69"/>
+                                <rect key="frame" x="644" y="44" width="443" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -33,7 +33,23 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Intrinsic matrix" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wPH-Or-RrT">
-                                <rect key="frame" x="653" y="115" width="507" height="221"/>
+                                <rect key="frame" x="653" y="98" width="330" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="fov : " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FUN-7S-OOR">
+                                <rect key="frame" x="653" y="334" width="58" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="fov" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yw5-Pq-TZe">
+                                <rect key="frame" x="719" y="340" width="198" height="119"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -47,6 +63,7 @@
                     <connections>
                         <outlet property="colorImageView" destination="fe2-pg-iQp" id="qdh-TL-OAm"/>
                         <outlet property="depthImageView" destination="zSH-x2-gIR" id="Xfh-Je-lNM"/>
+                        <outlet property="fovView" destination="yw5-Pq-TZe" id="5zz-U5-7NW"/>
                         <outlet property="intrinsicMatView" destination="wPH-Or-RrT" id="O7C-RX-FeC"/>
                         <outlet property="intrinsicTitleView" destination="IgQ-Uf-9kU" id="WmG-57-pWi"/>
                     </connections>

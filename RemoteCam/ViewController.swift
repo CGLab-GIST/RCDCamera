@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var depthImageView: UIImageView!
     @IBOutlet weak var intrinsicTitleView: UITextView!
     @IBOutlet weak var intrinsicMatView: UITextView!
+    @IBOutlet weak var fovView: UITextView!
     
     private let session = ARSession()
     private var sampleFrame: ARFrame { session.currentFrame! }
@@ -27,6 +28,9 @@ class ViewController: UIViewController {
     private var colorImage : UIImage!
     private var depthImage : UIImage!
     private var depthData : CVPixelBuffer!
+    
+    private let targetColorWidth = 640
+    private let targetColorHeight = 480
     
     // It'll works like EOF
     let tailData = "__TAIL_TAIL_TAIL__".data(using: .utf8)
@@ -107,18 +111,33 @@ class ViewController: UIViewController {
         // print(ARWorldTrackingConfiguration.supportedVideoFormats)
         // configuration.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats[2]
         
-        intrinsicTitleView.text = "Intrinsic with resolution " + NSCoder.string(for: configuration.videoFormat.imageResolution)
+        intrinsicTitleView.text = "Intrinsic with target resolution " + String(targetColorWidth) + ", " + String(targetColorHeight)
         
         session.run(configuration)
-        
     }
 }
 
 extension ViewController: ARSessionDelegate{
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){
+    
+        var intrinsics = frame.camera.intrinsics
+        let resolution = frame.camera.imageResolution
         
-        let intrinsics = frame.camera.intrinsics
+        // Camera intrinsic must be converted as image resolution is changed
+        
+        // Target resolution ratio must be equal to original resolution ratio
+        let ratio1 = Float(resolution.width) / Float(resolution.height)
+        let ratio2 = Float(targetColorWidth) / Float(targetColorHeight)
+        assert(abs(ratio1 - ratio2) < Float.ulpOfOne)
+        
+        let multiply = Float(targetColorWidth) / Float(resolution.width)
+        
+        intrinsics[0][0] *= multiply;
+        intrinsics[1][1] *= multiply;
+        intrinsics[2][0] *= multiply;
+        intrinsics[2][1] *= multiply;
+        
         var intrinsicMatStr = ""
         for i in 0..<3 {
             let row = intrinsics[i]
@@ -130,11 +149,14 @@ extension ViewController: ARSessionDelegate{
         }
         intrinsicMatView.text = intrinsicMatStr
         
+        let xFovDegrees = 2 * atan(Float(targetColorWidth)/(2 * intrinsics[0,0])) * 180/Float.pi
+        let yFovDegrees = 2 * atan(Float(targetColorHeight)/(2 * intrinsics[1,1])) * 180/Float.pi
+        fovView.text = String(xFovDegrees) + "\n" + String(yFovDegrees)
         
         let colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: frame.capturedImage))
         colorImageView.image = colorImage
         // Original resolution depends on configuration set before
-        self.colorImage = colorImage.resize(to: CGSize(width: 640, height: 480))
+        self.colorImage = colorImage.resize(to: CGSize(width: targetColorWidth, height: targetColorHeight))
         
         // format : kCVPixelFormatType_DepthFloat32
         // width  : 256
