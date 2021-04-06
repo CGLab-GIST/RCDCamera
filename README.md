@@ -28,9 +28,10 @@ Please refer `client_example.py` for example. It receives color or depth image f
 ### Screenshots
 
 #### `main`
-![IMG_0006](https://user-images.githubusercontent.com/11532321/104289202-34d81400-54fc-11eb-96f8-5a6e6a03acf2.PNG)
+![IMG_0154](https://user-images.githubusercontent.com/11532321/113666104-a71a5800-96e9-11eb-959d-a8011b3a8bea.PNG)
 
 
 #### `without_depth`
 
-![output-onlinepngtools](https://user-images.githubusercontent.com/11532321/104986736-0e176180-5a57-11eb-8f01-eb4db918045f.png)
+![img](https://user-images.githubusercontent.com/11532321/113666575-738bfd80-96ea-11eb-803e-ee7793da6c02.jpg)
+
