@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     private var depthImage : UIImage!
     private var depthData : CVPixelBuffer!
     
+    // Resolution of the output color images. Note that this will affect to intrinsic parameters.
     private let targetColorWidth = 640
     private let targetColorHeight = 480
     
