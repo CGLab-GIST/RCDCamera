@@ -11,7 +11,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="RGBDViewController" id="BYZ-38-t0r" customClass="RGBDViewController" customModule="RemoteCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
@@ -57,9 +56,12 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZI-jA-H9P">
-                                <rect key="frame" x="1098" y="343" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZI-jA-H9P">
+                                <rect key="frame" x="1074" y="397" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="82w-rj-Fyb"/>
+                                    <constraint firstAttribute="height" constant="40" id="YIr-9T-MNe"/>
+                                </constraints>
                                 <state key="normal" title="RGB mode"/>
                                 <connections>
                                     <action selector="ToRGBBtnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tid-sl-Up6"/>
@@ -68,6 +70,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NZI-jA-H9P" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8FY-RM-MbN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NZI-jA-H9P" secondAttribute="trailing" constant="20" id="8fd-Lg-2Rs"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="colorImageView" destination="fe2-pg-iQp" id="qdh-TL-OAm"/>
@@ -75,8 +81,10 @@
                         <outlet property="fovView" destination="yw5-Pq-TZe" id="5zz-U5-7NW"/>
                         <outlet property="intrinsicMatView" destination="wPH-Or-RrT" id="O7C-RX-FeC"/>
                         <outlet property="intrinsicTitleView" destination="IgQ-Uf-9kU" id="WmG-57-pWi"/>
+                        <outlet property="rgbModeButton" destination="NZI-jA-H9P" id="Mii-LU-fjN"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="19.597989949748744" y="93.525179856115116"/>
         </scene>
@@ -137,9 +145,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkJ-j0-RVJ">
-                                <rect key="frame" x="1090" y="366" width="84" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkJ-j0-RVJ">
+                                <rect key="frame" x="1064" y="397" width="110" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="DH1-Bh-HNE"/>
+                                    <constraint firstAttribute="height" constant="40" id="xJB-bK-s1p"/>
+                                </constraints>
                                 <state key="normal" title="RGBD mode"/>
                                 <connections>
                                     <action selector="ToRGBDBtnClick:" destination="Gv9-YR-qNz" eventType="touchUpInside" id="cqI-zd-4A4"/>
@@ -148,6 +159,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BYy-d3-IxP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zkJ-j0-RVJ" firstAttribute="centerY" secondItem="T6f-Tk-bmt" secondAttribute="centerY" id="eet-l1-Hdy"/>
+                            <constraint firstItem="BYy-d3-IxP" firstAttribute="trailing" secondItem="zkJ-j0-RVJ" secondAttribute="trailing" constant="20" id="x0u-VR-hXd"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="ISOSlider" destination="ihH-WX-tEg" id="zTj-pa-VZT"/>
@@ -155,6 +170,7 @@
                         <outlet property="colorImageView" destination="oAg-nk-NI6" id="ZHh-wd-iNT"/>
                         <outlet property="exposureSlider" destination="fg9-tx-mXJ" id="41Z-67-hwN"/>
                         <outlet property="exposureTextViewer" destination="mPc-pz-RjD" id="nB6-xX-eSj"/>
+                        <outlet property="rgbdModeButton" destination="zkJ-j0-RVJ" id="2V7-Wg-VX6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1OE-hv-eik" sceneMemberID="firstResponder"/>

@@ -16,6 +16,7 @@ class RGBViewController: UIViewController {
     @IBOutlet weak var ISOSlider: UISlider!
     @IBOutlet weak var exposureSlider: UISlider!
     @IBOutlet weak var exposureTextViewer: UITextField!
+    @IBOutlet weak var rgbdModeButton: UIButton!
     
     private var ISO = 120
     private var exposureTime = 80
@@ -36,6 +37,7 @@ class RGBViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rgbdModeButton.setRGBModeButtonUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
