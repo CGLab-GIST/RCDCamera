@@ -16,6 +16,7 @@ class RGBDViewController: UIViewController {
     @IBOutlet weak var intrinsicTitleView: UITextView!
     @IBOutlet weak var intrinsicMatView: UITextView!
     @IBOutlet weak var fovView: UITextView!
+    @IBOutlet weak var rgbModeButton: UIButton!
     
     private var session : ARSession!
     
@@ -37,6 +38,7 @@ class RGBDViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rgbModeButton.setRGBModeButtonUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {

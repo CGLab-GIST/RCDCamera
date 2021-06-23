@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		067B64BB268351F50062EB7B /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B64BA268351F50062EB7B /* UIButton+.swift */; };
 		3B12077925AD91D700615538 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077825AD91D700615538 /* AppDelegate.swift */; };
 		3B12077B25AD91D700615538 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077A25AD91D700615538 /* SceneDelegate.swift */; };
 		3B12077D25AD91D700615538 /* RGBDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077C25AD91D700615538 /* RGBDViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		067B64BA268351F50062EB7B /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3B12077525AD91D700615538 /* RemoteCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemoteCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B12077825AD91D700615538 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B12077A25AD91D700615538 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				3B12078625AD91D800615538 /* Info.plist */,
 				3BC11BFC2683075B005CEB24 /* UIImage+.swift */,
 				3BC11BFE26830772005CEB24 /* String+.swift */,
+				067B64BA268351F50062EB7B /* UIButton+.swift */,
 			);
 			path = RemoteCam;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BC11BFB268304D4005CEB24 /* RGBViewController.swift in Sources */,
+				067B64BB268351F50062EB7B /* UIButton+.swift in Sources */,
 				3B12077D25AD91D700615538 /* RGBDViewController.swift in Sources */,
 				3BC11BFD2683075B005CEB24 /* UIImage+.swift in Sources */,
 				3B12077925AD91D700615538 /* AppDelegate.swift in Sources */,
