@@ -7,7 +7,7 @@ Simple iOS remote camera app to send color and depth images that can be received
 
 ### Feature
 
-2 mode is available, `RGBD` and `RGB`.
+2 mode is available, `RGBD` and `RGB`. You can switch to each other in runtime.
 
 - `RGBD` : Able to send color and depth image to socket
 - `RGB` : Able to send color image **only** to socket with manually set camera(Exposure, ISO). **Note that ARKit 4 doesn't support setting camera ISO and exposure manually.**
