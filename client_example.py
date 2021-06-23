@@ -79,6 +79,7 @@ if __name__ == '__main__':
 
 
     get_rgb_image(clientSocket, str(1))
+    # It'll get error in RGB mode.
     get_depth_image(clientSocket, str(1))
 
     print("Close socket")

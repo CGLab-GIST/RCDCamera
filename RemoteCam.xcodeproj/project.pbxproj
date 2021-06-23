@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		3B12077925AD91D700615538 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077825AD91D700615538 /* AppDelegate.swift */; };
 		3B12077B25AD91D700615538 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077A25AD91D700615538 /* SceneDelegate.swift */; };
-		3B12077D25AD91D700615538 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077C25AD91D700615538 /* ViewController.swift */; };
+		3B12077D25AD91D700615538 /* RGBDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12077C25AD91D700615538 /* RGBDViewController.swift */; };
 		3B12078025AD91D700615538 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B12077E25AD91D700615538 /* Main.storyboard */; };
 		3B12078225AD91D800615538 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B12078125AD91D800615538 /* Assets.xcassets */; };
 		3B12078525AD91D800615538 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B12078325AD91D800615538 /* LaunchScreen.storyboard */; };
+		3BC11BFB268304D4005CEB24 /* RGBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC11BFA268304D4005CEB24 /* RGBViewController.swift */; };
+		3BC11BFD2683075B005CEB24 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC11BFC2683075B005CEB24 /* UIImage+.swift */; };
+		3BC11BFF26830772005CEB24 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC11BFE26830772005CEB24 /* String+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B12077525AD91D700615538 /* RemoteCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemoteCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B12077825AD91D700615538 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B12077A25AD91D700615538 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3B12077C25AD91D700615538 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3B12077C25AD91D700615538 /* RGBDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBDViewController.swift; sourceTree = "<group>"; };
 		3B12077F25AD91D700615538 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B12078125AD91D800615538 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B12078425AD91D800615538 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B12078625AD91D800615538 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BC11BFA268304D4005CEB24 /* RGBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBViewController.swift; sourceTree = "<group>"; };
+		3BC11BFC2683075B005CEB24 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		3BC11BFE26830772005CEB24 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +62,16 @@
 		3B12077725AD91D700615538 /* RemoteCam */ = {
 			isa = PBXGroup;
 			children = (
+				3BC11BFA268304D4005CEB24 /* RGBViewController.swift */,
 				3B12077825AD91D700615538 /* AppDelegate.swift */,
 				3B12077A25AD91D700615538 /* SceneDelegate.swift */,
-				3B12077C25AD91D700615538 /* ViewController.swift */,
+				3B12077C25AD91D700615538 /* RGBDViewController.swift */,
 				3B12077E25AD91D700615538 /* Main.storyboard */,
 				3B12078125AD91D800615538 /* Assets.xcassets */,
 				3B12078325AD91D800615538 /* LaunchScreen.storyboard */,
 				3B12078625AD91D800615538 /* Info.plist */,
+				3BC11BFC2683075B005CEB24 /* UIImage+.swift */,
+				3BC11BFE26830772005CEB24 /* String+.swift */,
 			);
 			path = RemoteCam;
 			sourceTree = "<group>";
@@ -137,8 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B12077D25AD91D700615538 /* ViewController.swift in Sources */,
+				3BC11BFB268304D4005CEB24 /* RGBViewController.swift in Sources */,
+				3B12077D25AD91D700615538 /* RGBDViewController.swift in Sources */,
+				3BC11BFD2683075B005CEB24 /* UIImage+.swift in Sources */,
 				3B12077925AD91D700615538 /* AppDelegate.swift in Sources */,
+				3BC11BFF26830772005CEB24 /* String+.swift in Sources */,
 				3B12077B25AD91D700615538 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

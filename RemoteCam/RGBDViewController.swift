@@ -9,7 +9,7 @@ import UIKit
 import ARKit
 import Network
 
-class ViewController: UIViewController {
+class RGBDViewController: UIViewController {
 
     @IBOutlet weak var colorImageView: UIImageView!
     @IBOutlet weak var depthImageView: UIImageView!
@@ -17,13 +17,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var intrinsicMatView: UITextView!
     @IBOutlet weak var fovView: UITextView!
     
-    private let session = ARSession()
-    private var sampleFrame: ARFrame { session.currentFrame! }
+    private var session : ARSession!
     
-    private var listener = try! NWListener(using: .tcp, on:12345)
-    private var nwConnection: NWConnection!
-    private var connectionQueue = DispatchQueue(label: "connectionQueue")
-    private var networkQueue = DispatchQueue(label: "networkQueue")
+    private var listener : NWListener!
+    private var nwConnection : NWConnection!
+    private var connectionQueue : DispatchQueue!
+    private var networkQueue : DispatchQueue!
         
     private var colorImage : UIImage!
     private var depthImage : UIImage!
@@ -38,7 +37,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+                
+        session = ARSession()
 
+        listener  = try! NWListener(using: .tcp, on:12345)
+        connectionQueue = DispatchQueue(label: "connectionQueue")
+        networkQueue = DispatchQueue(label: "networkQueue")
+        
         session.delegate = self
     
         listener.newConnectionHandler = {
@@ -82,7 +91,7 @@ class ViewController: UIViewController {
                     
                         imgData = Data(bytes: &depthArray, count: depthArray.count * MemoryLayout<Float32>.stride)
                     }
-                    else if(receivedString == "dummy"){
+                    else{
                         imgData = "DUMMY DATA".data(using: .utf8)
                     }
                     
@@ -116,9 +125,22 @@ class ViewController: UIViewController {
         
         session.run(configuration)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        listener.cancel()
+    }
+    
+    @IBAction func ToRGBBtnClick(_ sender: Any) {
+        let nextVC = storyboard?.instantiateViewController(withIdentifier: "RGBViewController")
+        let sceneDelegate = UIApplication.shared.connectedScenes
+               .first!.delegate as! SceneDelegate
+        sceneDelegate.window?.rootViewController = nextVC
+    }
 }
 
-extension ViewController: ARSessionDelegate{
+extension RGBDViewController: ARSessionDelegate{
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){
     
@@ -173,30 +195,3 @@ extension ViewController: ARSessionDelegate{
     }
 }
 
-// https://stackoverflow.com/a/39215372
-extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
-        let stringLength = self.count
-        if stringLength < toLength {
-            return String(repeatElement(character, count: toLength - stringLength)) + self
-        } else {
-            return String(self.suffix(toLength))
-        }
-    }
-}
-
-// https://stackoverflow.com/a/55906075
-extension UIImage {
-
-    /// Resize image from given size.
-    ///
-    /// - Parameter newSize: Size of the image output.
-    /// - Parameter resizeFramework: Technique for image resizing: UIKit / CoreImage / CoreGraphics / ImageIO / Accelerate.
-    /// - Returns: Resized image.
-    public func resize(to newSize: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(newSize, true, 1.0)
-        self.draw(in: CGRect(origin: .zero, size: newSize))
-        defer { UIGraphicsEndImageContext() }
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
-}
