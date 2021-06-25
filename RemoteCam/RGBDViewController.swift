@@ -16,6 +16,7 @@ class RGBDViewController: UIViewController {
     @IBOutlet weak var intrinsicTitleView: UITextView!
     @IBOutlet weak var intrinsicMatView: UITextView!
     @IBOutlet weak var fovView: UITextView!
+    @IBOutlet weak var temperatureView: UITextField!
     @IBOutlet weak var rgbModeButton: UIButton!
     
     private var session : ARSession!
@@ -118,6 +119,7 @@ class RGBDViewController: UIViewController {
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.frameSemantics = .sceneDepth
+        configuration.isLightEstimationEnabled = true;
         
         // Check supported video format as below
         // print(ARWorldTrackingConfiguration.supportedVideoFormats)
@@ -178,6 +180,8 @@ extension RGBDViewController: ARSessionDelegate{
         let yFovDegrees = 2 * atan(Float(targetColorHeight)/(2 * intrinsics[1,1])) * 180/Float.pi
         fovView.text = String(xFovDegrees) + "\n" + String(yFovDegrees)
         
+        temperatureView.text = frame.lightEstimate?.ambientColorTemperature.description
+    
         let colorImage = UIImage(ciImage: CIImage(cvPixelBuffer: frame.capturedImage))
         colorImageView.image = colorImage
         // Original resolution depends on configuration set before

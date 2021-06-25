@@ -67,6 +67,20 @@
                                     <action selector="ToRGBBtnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tid-sl-Up6"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Temperature" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aMw-4v-abc">
+                                <rect key="frame" x="653" y="467" width="137" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="White Balance" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yga-8r-z1b">
+                                <rect key="frame" x="814" y="474" width="208" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -82,6 +96,7 @@
                         <outlet property="intrinsicMatView" destination="wPH-Or-RrT" id="O7C-RX-FeC"/>
                         <outlet property="intrinsicTitleView" destination="IgQ-Uf-9kU" id="WmG-57-pWi"/>
                         <outlet property="rgbModeButton" destination="NZI-jA-H9P" id="Mii-LU-fjN"/>
+                        <outlet property="temperatureView" destination="yga-8r-z1b" id="cPs-UN-Lbq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
