@@ -19,7 +19,7 @@ class RGBViewController: UIViewController {
     @IBOutlet weak var rgbdModeButton: UIButton!
     
     private var ISO = 120
-    private var exposureTime = 80
+    private var exposureTime = 120
     
     private var session : AVCaptureSession!
     private var captureOutput : AVCaptureVideoDataOutput!
@@ -123,12 +123,12 @@ class RGBViewController: UIViewController {
         self.captureDevice?.unlockForConfiguration()
         
         ISOSlider.minimumValue = (captureDevice?.activeFormat.minISO)!
-        ISOSlider.maximumValue = 1000
+        ISOSlider.maximumValue = 300
         ISOSlider.setValue(Float(self.ISO), animated: true)
         ISOTextViewer.text = String(self.ISO)
         
         exposureSlider.minimumValue = Float(CMTimeGetSeconds((captureDevice?.activeFormat.maxExposureDuration)!))
-        exposureSlider.maximumValue = 3000
+        exposureSlider.maximumValue = 1000
         exposureSlider.setValue(Float(self.exposureTime), animated: true)
         exposureTextViewer.text = "1 / "+String(self.exposureTime)
         
