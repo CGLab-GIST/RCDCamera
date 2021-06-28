@@ -3,23 +3,31 @@ Simple iOS remote camera app to send color and depth images that can be received
 
 ### Dependencies and requirements
 - [ARKit 4](https://developer.apple.com/documentation/arkit/), [AVFoundation](https://developer.apple.com/documentation/avfoundation), [Network](https://developer.apple.com/documentation/network)
-- **LiDAR-embedded iOS device**
+- **LiDAR-embedded iOS device** (Considering only 12.9 iPad currently)
 
-### Feature
+### Features
 
 2 mode is available, `RGBD` and `RGB`. You can switch to each other in runtime.
 
-- `RGBD` : Able to send color and depth image to socket
-- `RGB` : Able to send color image **only** to socket with manually set camera(Exposure, ISO). **Note that ARKit 4 doesn't support setting camera ISO and exposure manually.**
+- `RGBD`
+    - Send color and depth image to socket. 
+    - Intrinsic matrix viewer
+    - Current fov viewer
+    - Current color templerature viewer
+
+- `RGB`
+    - Send color image **only** to socket.
+    - Manual ISO and exposure controller
+    - Manual color gain controller
 
 ### Usage
 
-You have to know device's ip address. `RCDCamera` uses port `12345` by default.
+Device's IP address is required to get images. `RCDCamera` uses port `12345` by default.
 
 - RGB image : Send UTF-8 encoded `"rgb"` string to the address, PNG image itself will be returned.
 - Depth image(in RGBD mode only) : Send UTF-8 encoded `"depth"` string to the address, **binary of the depth ARRAY** will be returned. You have to convert it to an image in some way.
 
-In both case, UTF-8 encoded `__TAIL_TAIL_TAIL__` is added to the end of the data. It can be used to separate images/data from received binary.
+Note that UTF-8 encoded `__TAIL_TAIL_TAIL__` is added to the end of the data in both mode. It can be used to separate images/data from received binary.
 
 Please refer `client_example.py` for example. It receives color or depth image from the connected socket.
 
@@ -30,11 +38,14 @@ Please refer `client_example.py` for example. It receives color or depth image f
 
 ### Screenshots
 
-#### `RGB mode`
-![IMG_8891](https://user-images.githubusercontent.com/11532321/123085692-81d1f600-d45d-11eb-8cd1-4ab50e3d9d33.PNG)
-
-
 #### `RGBD mode`
-![output-onlinepngtools](https://user-images.githubusercontent.com/11532321/123085879-b80f7580-d45d-11eb-8692-e40ca1090ec0.png)
+![IMG_8894](https://user-images.githubusercontent.com/11532321/123582627-18fdcb80-d819-11eb-9e0f-64a2ee882db9.PNG)
+
+#### `RGB mode`
+![output-onlinepngtools-2](https://user-images.githubusercontent.com/11532321/123582726-4c405a80-d819-11eb-84b1-3fc4a3c04e65.png)
+
+
+
+
 
 
