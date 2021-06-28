@@ -16,10 +16,24 @@ class RGBViewController: UIViewController {
     @IBOutlet weak var ISOSlider: UISlider!
     @IBOutlet weak var exposureSlider: UISlider!
     @IBOutlet weak var exposureTextViewer: UITextField!
+    
+    @IBOutlet weak var RGainTextViewer: UITextField!
+    @IBOutlet weak var GGainTextViewer: UITextField!
+    @IBOutlet weak var BGainTextViewer: UITextField!
+    
+    @IBOutlet weak var RGainSlider: UISlider!
+    @IBOutlet weak var GGainSlider: UISlider!
+    @IBOutlet weak var BGainSlider: UISlider!
+    
     @IBOutlet weak var rgbdModeButton: UIButton!
+    
     
     private var ISO = 120
     private var exposureTime = 120
+    
+    private var rGain = Float(1.0)
+    private var gGain = Float(1.0)
+    private var bGain = Float(1.0)
     
     private var session : AVCaptureSession!
     private var captureOutput : AVCaptureVideoDataOutput!
@@ -110,16 +124,10 @@ class RGBViewController: UIViewController {
         // Set resolution
         self.session.sessionPreset = .vga640x480
         // Set expossure time, ISO, white balance, focus mode
-        do {
-            try self.captureDevice!.lockForConfiguration()
-            self.captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: Int32(self.exposureTime)), iso: Float(self.ISO), completionHandler: nil)
-            self.captureDevice?.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(), completionHandler: nil)
-            self.captureDevice?.focusMode = .continuousAutoFocus
-            self.captureDevice!.unlockForConfiguration()
-        } catch {
-            debugPrint(error)
-        }
 
+        adjustCamera()
+    
+        
         self.captureDevice?.unlockForConfiguration()
         
         ISOSlider.minimumValue = (captureDevice?.activeFormat.minISO)!
@@ -132,6 +140,27 @@ class RGBViewController: UIViewController {
         exposureSlider.setValue(Float(self.exposureTime), animated: true)
         exposureTextViewer.text = "1 / "+String(self.exposureTime)
         
+        
+        RGainSlider.minimumValue = 1.0;
+        RGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
+        RGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.redGain, animated: true)
+        self.rGain = self.captureDevice.deviceWhiteBalanceGains.redGain
+        RGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.redGain)
+        
+        GGainSlider.minimumValue = 1.0;
+        GGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
+        GGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.greenGain, animated: true)
+        self.gGain = self.captureDevice.deviceWhiteBalanceGains.greenGain
+        GGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.greenGain)
+        
+        BGainSlider.minimumValue = 1.0;
+        BGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
+        BGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.blueGain, animated: true)
+        self.bGain = self.captureDevice.deviceWhiteBalanceGains.blueGain
+        BGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.blueGain)
+        
+        adjustCamera()
+        
         let captureInput = try! AVCaptureDeviceInput(device: captureDevice!)
         self.session.addInput(captureInput)
         
@@ -143,6 +172,10 @@ class RGBViewController: UIViewController {
         previewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight;
         
         colorImageView.layer.addSublayer(previewLayer)
+    
+        print(self.captureDevice.maxWhiteBalanceGain)
+        print(self.captureDevice.deviceWhiteBalanceGains)
+    
         
         self.captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "AVCaptureOutputQueue", attributes: []))
         self.session.addOutput(self.captureOutput)
@@ -170,11 +203,32 @@ class RGBViewController: UIViewController {
         exposureTextViewer.text = "1 / "+String(self.exposureTime)
         adjustCamera()
     }
+
+    @IBAction func RGainSliderChanged(_ sender: UISlider) {
+        self.rGain = Float(sender.value)
+        RGainTextViewer.text = String(rGain)
+        adjustCamera()
+    }
+    
+    @IBAction func GGainSliderChanged(_ sender: UISlider) {
+        self.gGain = Float(sender.value)
+        GGainTextViewer.text = String(gGain)
+        adjustCamera()
+    }
+    
+    @IBAction func BGainSliderChanged(_ sender: UISlider) {
+        self.bGain = Float(sender.value)
+        BGainTextViewer.text = String(bGain)
+        adjustCamera()
+    }
     
     func adjustCamera(){
         do {
+            // captureDevice.isLockingWhiteBalanceWithCustomDeviceGainsSupported
+            // returns false
             try self.captureDevice!.lockForConfiguration()
             self.captureDevice!.setExposureModeCustom(duration: CMTimeMake(value: 1,timescale: Int32(self.exposureTime)), iso: Float(self.ISO), completionHandler: nil)
+            self.captureDevice?.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: self.rGain, greenGain: self.gGain, blueGain: self.bGain), completionHandler: nil)
             self.captureDevice!.unlockForConfiguration()
         } catch {
             debugPrint(error)
