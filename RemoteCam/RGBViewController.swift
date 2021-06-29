@@ -55,8 +55,9 @@ class RGBViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
+        
+        UIApplication.shared.isIdleTimerDisabled = true
         
         session = AVCaptureSession()
         captureOutput = AVCaptureVideoDataOutput()

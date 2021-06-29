@@ -19,6 +19,8 @@ class RGBDViewController: UIViewController {
     @IBOutlet weak var temperatureView: UITextField!
     @IBOutlet weak var rgbModeButton: UIButton!
     
+    @IBOutlet weak var warnTextViewer: UITextView!
+    
     private var session : ARSession!
     
     private var listener : NWListener!
@@ -45,6 +47,8 @@ class RGBDViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         session = ARSession()
 
         listener  = try! NWListener(using: .tcp, on:12345)
@@ -126,6 +130,11 @@ class RGBDViewController: UIViewController {
         // configuration.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats[2]
         
         intrinsicTitleView.text = "Intrinsic with target resolution " + String(targetColorWidth) + ", " + String(targetColorHeight)
+        
+        if(UIApplication.shared.isIdleTimerDisabled == true){
+            warnTextViewer.text = "This app is ignoring device's auto lock setting, device will be kept awake in both RGB / RGBD modes."
+        }
+        
         
         session.run(configuration)
     }

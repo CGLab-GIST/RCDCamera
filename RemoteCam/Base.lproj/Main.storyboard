@@ -81,6 +81,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZUs-j9-Zct">
+                                <rect key="frame" x="653" y="577" width="530" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -97,11 +105,12 @@
                         <outlet property="intrinsicTitleView" destination="IgQ-Uf-9kU" id="WmG-57-pWi"/>
                         <outlet property="rgbModeButton" destination="NZI-jA-H9P" id="Mii-LU-fjN"/>
                         <outlet property="temperatureView" destination="yga-8r-z1b" id="cPs-UN-Lbq"/>
+                        <outlet property="warnTextViewer" destination="ZUs-j9-Zct" id="Roz-je-nlA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="19.597989949748744" y="93.525179856115116"/>
+            <point key="canvasLocation" x="19.326500732064421" y="93.1640625"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zpR-2B-syU">
