@@ -176,9 +176,8 @@ extension RGBDViewController: ARSessionDelegate{
         
         var intrinsicMatStr = ""
         for i in 0..<3 {
-            let row = intrinsics[i]
             for j in 0..<3{
-                let val = String(row[j])
+                let val = String(intrinsics[j,i])
                 intrinsicMatStr += val.leftPadding(toLength: 10, withPad: " ")
             }
             intrinsicMatStr += "\n"
