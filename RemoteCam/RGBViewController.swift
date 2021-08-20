@@ -144,21 +144,21 @@ class RGBViewController: UIViewController {
         
         RGainSlider.minimumValue = 1.0;
         RGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
-        RGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.redGain, animated: true)
-        self.rGain = self.captureDevice.deviceWhiteBalanceGains.redGain
-        RGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.redGain)
+        self.rGain = round(Float(self.captureDevice.deviceWhiteBalanceGains.redGain)*100)/100.0
+        RGainSlider.setValue(self.rGain, animated: true)
+        RGainTextViewer.text = String(self.rGain)
         
         GGainSlider.minimumValue = 1.0;
         GGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
-        GGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.greenGain, animated: true)
-        self.gGain = self.captureDevice.deviceWhiteBalanceGains.greenGain
-        GGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.greenGain)
+        self.gGain = round(Float(self.captureDevice.deviceWhiteBalanceGains.greenGain)*100)/100.0
+        GGainSlider.setValue(self.gGain, animated: true)
+        GGainTextViewer.text = String(self.gGain)
         
         BGainSlider.minimumValue = 1.0;
         BGainSlider.maximumValue = self.captureDevice.maxWhiteBalanceGain
-        BGainSlider.setValue(self.captureDevice.deviceWhiteBalanceGains.blueGain, animated: true)
-        self.bGain = self.captureDevice.deviceWhiteBalanceGains.blueGain
-        BGainTextViewer.text = String(self.captureDevice.deviceWhiteBalanceGains.blueGain)
+        self.bGain = round(Float(self.captureDevice.deviceWhiteBalanceGains.blueGain)*100)/100.0
+        BGainSlider.setValue(self.bGain, animated: true)
+        BGainTextViewer.text = String(self.bGain)
         
         adjustCamera()
         
@@ -206,19 +206,19 @@ class RGBViewController: UIViewController {
     }
 
     @IBAction func RGainSliderChanged(_ sender: UISlider) {
-        self.rGain = Float(sender.value)
+        self.rGain = round(Float(sender.value)*100)/100.0
         RGainTextViewer.text = String(rGain)
         adjustCamera()
     }
     
     @IBAction func GGainSliderChanged(_ sender: UISlider) {
-        self.gGain = Float(sender.value)
+        self.gGain = round(Float(sender.value)*100)/100.0
         GGainTextViewer.text = String(gGain)
         adjustCamera()
     }
     
     @IBAction func BGainSliderChanged(_ sender: UISlider) {
-        self.bGain = Float(sender.value)
+        self.bGain = round(Float(sender.value)*100)/100.0
         BGainTextViewer.text = String(bGain)
         adjustCamera()
     }
