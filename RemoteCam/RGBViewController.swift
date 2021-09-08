@@ -27,6 +27,7 @@ class RGBViewController: UIViewController {
     
     @IBOutlet weak var rgbdModeButton: UIButton!
     
+    @IBOutlet weak var autofocusSwitch: UISwitch!
     
     private var ISO = 120
     private var exposureTime = 120
@@ -129,8 +130,6 @@ class RGBViewController: UIViewController {
         adjustCamera()
     
         
-        self.captureDevice?.unlockForConfiguration()
-        
         ISOSlider.minimumValue = (captureDevice?.activeFormat.minISO)!
         ISOSlider.maximumValue = 300
         ISOSlider.setValue(Float(self.ISO), animated: true)
@@ -222,6 +221,23 @@ class RGBViewController: UIViewController {
         BGainTextViewer.text = String(bGain)
         adjustCamera()
     }
+    @IBAction func autofocusSwitchChanged(_ sender: UISwitch) {
+        print("switch changed")
+        self.captureDevice!.unlockForConfiguration()
+        do {
+            try self.captureDevice!.lockForConfiguration()
+            if(sender.isOn){
+                self.captureDevice.focusMode = .autoFocus
+            }
+            else{
+                self.captureDevice.focusMode = .locked
+            }
+            self.captureDevice!.unlockForConfiguration()
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
     
     func adjustCamera(){
         do {

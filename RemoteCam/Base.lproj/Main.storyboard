@@ -237,6 +237,19 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oYV-Sh-Pqx">
+                                <rect key="frame" x="1293" y="439" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="autofocusSwitchChanged:" destination="Gv9-YR-qNz" eventType="valueChanged" id="FdX-Zp-oFq"/>
+                                </connections>
+                            </switch>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Autofocus" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCf-zn-k9V">
+                                <rect key="frame" x="1208" y="430" width="77" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BYy-d3-IxP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -254,6 +267,7 @@
                         <outlet property="ISOTextViewer" destination="lkT-zP-WgP" id="JHT-bT-fv8"/>
                         <outlet property="RGainSlider" destination="OyJ-O9-L9L" id="kMF-Gg-3wv"/>
                         <outlet property="RGainTextViewer" destination="pIP-dp-51g" id="uVe-vq-z8H"/>
+                        <outlet property="autofocusSwitch" destination="oYV-Sh-Pqx" id="fJ6-kz-lAG"/>
                         <outlet property="colorImageView" destination="oAg-nk-NI6" id="ZHh-wd-iNT"/>
                         <outlet property="exposureSlider" destination="fg9-tx-mXJ" id="41Z-67-hwN"/>
                         <outlet property="exposureTextViewer" destination="mPc-pz-RjD" id="nB6-xX-eSj"/>
