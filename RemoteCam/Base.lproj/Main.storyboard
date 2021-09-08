@@ -60,7 +60,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Temperature" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aMw-4v-abc">
-                                <rect key="frame" x="653" y="467" width="137" height="95"/>
+                                <rect key="frame" x="653" y="467" width="137" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -74,7 +74,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZUs-j9-Zct">
-                                <rect key="frame" x="653" y="577" width="530" height="95"/>
+                                <rect key="frame" x="653" y="682" width="530" height="95"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -89,6 +89,22 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="IP / Port" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="A87-yq-0ok">
+                                <rect key="frame" x="653" y="539" width="137" height="42.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="123.123.123.123:12345" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d6H-i7-NHp">
+                                <rect key="frame" x="811" y="539" width="215" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -98,6 +114,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="IPAddrView" destination="d6H-i7-NHp" id="NYl-TY-tMK"/>
                         <outlet property="colorImageView" destination="fe2-pg-iQp" id="qdh-TL-OAm"/>
                         <outlet property="depthImageView" destination="zSH-x2-gIR" id="Xfh-Je-lNM"/>
                         <outlet property="fovView" destination="yw5-Pq-TZe" id="5zz-U5-7NW"/>
