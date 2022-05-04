@@ -2,7 +2,7 @@
 //  UIButton+.swift
 //  RemoteCam
 //
-//  Created by 남수김 on 2021/06/23.
+//  Created by `namsoo5` from github on 2021/06/23.
 //
 
 import UIKit

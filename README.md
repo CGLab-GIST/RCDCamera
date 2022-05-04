@@ -45,7 +45,10 @@ Please refer `client_example.py` for example. It receives color or depth image f
 ![output-onlinepngtools-2](https://user-images.githubusercontent.com/11532321/123582726-4c405a80-d819-11eb-84b1-3fc4a3c04e65.png)
 
 
-
+### Credits
+- Resizing `UIImage` by Vasily Bodnarchuk in stack overflow. [link](https://stackoverflow.com/a/55906075)
+- Adding padding to `String` by Gustavo Seidler in stack overflow. [link](https://stackoverflow.com/a/39215372)
+- `UIButton+.swift` written by [namsoo5](https://github.com/namsoo5).
 
 
 
