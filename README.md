@@ -1,5 +1,5 @@
 # RCDCamera : Remote Color Depth Camera
-Simple iOS remote camera app to send color and depth images that can be received by the socket, without any 3rd-party dependencies. It is implemented to replace [Intel RealSense](https://github.com/IntelRealSense/librealsense) for my personal usage. 
+Simple iOS remote camera app to send color and depth images that can be received by the socket, without any 3rd-party dependencies. It is implemented to replace [Intel RealSense](https://github.com/IntelRealSense/librealsense).
 
 ### Dependencies and requirements
 - [ARKit 4](https://developer.apple.com/documentation/arkit/), [AVFoundation](https://developer.apple.com/documentation/avfoundation), [Network](https://developer.apple.com/documentation/network)
